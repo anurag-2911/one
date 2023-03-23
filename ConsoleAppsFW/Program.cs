@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
@@ -11,6 +12,17 @@ namespace ConsoleAppsFW
 
         static void Main(string[] args)
         {
+            string zenworksPath = "Zenworks_Home";
+            string zenworksPathValue = Environment.GetEnvironmentVariable(zenworksPath);
+            string azureADCilentExecutable = string.Empty;
+            if (!string.IsNullOrEmpty(zenworksPathValue))
+            {
+                azureADCilentExecutable = string.Format("{0}\\{1}\\{2}", zenworksPathValue.Trim(), "bin", "AzureADClient.exe");
+            }
+            if (File.Exists(azureADCilentExecutable))
+            {
+                Console.WriteLine("file is there");
+            }
             string clientID = "25356a13-d1c9-43cb-858e-88fc11631b29";
 
             byte[] clientIDBytes = clientID.Select(b => (byte)b).ToArray();
