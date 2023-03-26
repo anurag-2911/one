@@ -3,6 +3,7 @@ package mock01
 import (
 	"fmt"
 	"os"
+	"unicode/utf8"
 )
 
 type ZError struct {
@@ -26,4 +27,14 @@ func mock01Functions() {
 		fmt.Println(val)
 	}
 
+}
+func unicodeTest(){
+	greeting := "こんにちは, 世界!"
+	for _, v := range greeting {
+		fmt.Printf("%c\t",v)
+	}
+	r,sz:=utf8.DecodeRuneInString(greeting)
+	fmt.Println(r,sz)
+
+	fmt.Println(greeting)
 }

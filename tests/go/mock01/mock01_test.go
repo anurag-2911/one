@@ -6,6 +6,7 @@ import (
 )
 
 func TestMockfn(t *testing.T) {
+	unicodeTest()
 	mock01Functions()
 }
 func TestDoSomething(t *testing.T) {
