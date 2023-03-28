@@ -1,23 +1,24 @@
 package mock01
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"unicode/utf8"
 )
 
-type ZError struct {
+type CError struct {
 	Kode    string
 	Message string
 }
 
-func (er ZError) Error() string {
-	return fmt.Sprintf("error is %s , %s", er.Kode, er.Message)
+func (cer CError) Error() string {
+	return fmt.Sprintf("error is %s , %s", cer.Kode, cer.Message)
 }
 
 func DoSomething(val int) error {
 	if val < 100 {
-		return ZError{Kode: "101", Message: "itne kam me kya hoga"}
+		return CError{Kode: "101", Message: "itne kam me kya hoga"}
 	}
 	return nil
 }
@@ -37,4 +38,17 @@ func unicodeTest(){
 	fmt.Println(r,sz)
 
 	fmt.Println(greeting)
+}
+func dividebyZero(n int, m int)(int,error){
+	if(m==0){
+		return 0,errors.New("division by zero")
+	}
+	return n/m, nil
+}
+func DivideZeroCustom(n int, m int)(int,error){
+if(m==0){
+	return 0,CError{Kode: "102",Message: "kahe re zero kahe"}
+}else{
+	return n/m,nil
+}
 }
