@@ -6,8 +6,10 @@ import (
 )
 
 func TestMockfn(t *testing.T) {
-	unicodeTest()
-	mock01Functions()
+	// callUnitWork()
+	// unicodeTest()
+	// mock01Functions()
+	testchan()
 }
 func TestDoSomething(t *testing.T) {
 	err := DoSomething(12)

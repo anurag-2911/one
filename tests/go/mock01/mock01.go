@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 	"unicode/utf8"
 )
 
@@ -51,4 +52,34 @@ if(m==0){
 }else{
 	return n/m,nil
 }
+}
+
+func unitWork(){
+	for i := 0; i < 5; i++ {
+		time.Sleep(time.Second)
+		fmt.Printf("%d\t",i)
+	}
+}
+func callUnitWork(){
+	go unitWork()
+	time.Sleep(time.Second*7)
+	fmt.Printf("%s\n","done")
+}
+
+func produce(ch chan int ){
+	for i := 0; i < 5; i++ {
+		ch<-i
+	}
+	close(ch)
+}
+func consume(ch chan int){
+	for i:=range ch{
+		fmt.Println(i)
+	}
+}
+func testchan(){
+	ch:=make(chan int)
+	go produce(ch)
+	go consume(ch)
+	fmt.Println("producer consumer done")
 }
