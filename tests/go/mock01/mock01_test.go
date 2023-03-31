@@ -4,7 +4,22 @@ import (
 	"fmt"
 	"testing"
 )
+func TestFileOps(t *testing.T) {
+	FileOps()
+}
 
+func TestLoops(t *testing.T) {
+	Loops()
+}
+func TestCMaps(t *testing.T) {
+	CMaps()
+}
+func TestSmap(t *testing.T) {
+	CordsMap()
+}
+func TestMaps(t *testing.T) {
+	aboutmaps()
+}
 func TestArraynSlices(t *testing.T) {
 	ArraynSlices()
 }

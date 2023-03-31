@@ -1,6 +1,7 @@
 package mock01
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"os"
@@ -8,6 +9,98 @@ import (
 	"time"
 	"unicode/utf8"
 )
+func FileOps(){
+	var filepath string = "C:/work/learn/one/tests/go/mock01/mock01_test.go"
+	data,err:=os.ReadFile(filepath)
+	if(err==nil){
+		fmt.Println(len(data))
+	}else{
+		fmt.Println(err)
+	}
+
+	fs,err:=os.Open(filepath)
+	if(err!=nil){
+		fmt.Println(err)
+		return
+	}else{
+		defer fs.Close()
+		scanner:=bufio.NewScanner(fs)
+		for scanner.Scan(){
+			line:=scanner.Text()
+			fmt.Println(line)
+			time.Sleep(time.Second)
+		}
+		if err:=scanner.Err(); err!=nil {
+			fmt.Println("error reading file ",err)
+		}
+	}
+}
+type Coords struct{
+	X int
+	Y int
+}
+
+func Loops(){
+	for i := 0; i < 5; i++ {
+		fmt.Printf("%d\t",i)
+	}
+	x:=0
+	for {
+		
+		fmt.Printf("%d\t",x)
+		x++
+		if(x>10){
+		break
+		}
+	}
+}
+
+func CordsMap(){
+	smap:=make(map[Coords]int, 0)
+	smap[Coords{X:1,Y:2}]=0
+	for k, v := range smap {
+		fmt.Println(k,v)
+	}
+}
+func CMaps(){
+	concurrentMaps:=sync.Map{}
+	concurrentMaps.Store("one",1)
+	val,exists:=concurrentMaps.Load("one")
+	if(exists){
+		fmt.Println(val)
+	}
+	concurrentMaps.Delete("one")
+	concurrentMaps.Store("two",2)
+	concurrentMaps.Range(func(key, value any) bool {
+		fmt.Printf("%v,%v",key,value)
+		return true
+
+	})
+
+}
+func aboutmaps(){
+	table1:=make(map[int]string)
+	loop:=1000000
+	starTime:=time.Now()
+	for i := 0; i < loop; i++ {
+		table1[i]=fmt.Sprintf("%d",i)
+	}
+	endtime:=time.Since(starTime).Seconds()
+	fmt.Println("time taken",endtime)
+	val,exists := table1[5]
+	if(exists){
+		fmt.Println(val)
+	}
+	fmt.Println(len(table1))
+	delete(table1,5)
+	fmt.Println(len(table1))
+	for k, v := range table1 {
+		fmt.Print(k) 
+		fmt.Print(" ")
+		fmt.Print(v)
+	}
+	fmt.Println()
+}
 
 func ArraynSlices() {
 	var numbers [5]int = [5]int{1, 2, 3, 4, 5}
