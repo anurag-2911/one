@@ -4,6 +4,38 @@ import (
 	"fmt"
 	"testing"
 )
+
+func TestWPool(t *testing.T) {
+	workerPool()
+}
+func TestBBuff(t *testing.T) {
+	basicBuff()
+}
+func TestBufchn(t *testing.T) {
+	buffchannel()
+}
+func TestSafeDev(t *testing.T) {
+	res, err := safeDivide(10, 2)
+	fmt.Println(res, err)
+
+	res, err = safeDivide(10, 0)
+	fmt.Println(res, err)
+
+	fmt.Println("Normal execution")
+
+}
+func TestPanic(t *testing.T) {
+	picnic()
+}
+func TestGor2(t *testing.T) {
+	Gor02()
+}
+func TestWg(t *testing.T) {
+	WaitG()
+}
+func TestGor(t *testing.T) {
+	Gor01()
+}
 func TestFileOps(t *testing.T) {
 	FileOps()
 }
