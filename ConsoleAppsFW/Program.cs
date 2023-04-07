@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,6 +13,8 @@ namespace ConsoleAppsFW
 
         static void Main(string[] args)
         {
+            bool res = IsVCRuntimeAlreadyInstalled();
+
             string zenworksPath = "Zenworks_Home";
             string zenworksPathValue = Environment.GetEnvironmentVariable(zenworksPath);
             string azureADCilentExecutable = string.Empty;
@@ -41,6 +44,28 @@ namespace ConsoleAppsFW
             Console.ReadKey();
 
 
+        }
+        private static bool IsVCRuntimeAlreadyInstalled()
+        {
+            bool alreadyInstalled = false;
+
+            try
+            {
+                string keyPath = Environment.Is64BitOperatingSystem ?
+                @"SOFTWARE\WOW6432Node\Microsoft\VisualStudio\14.0\VC\Runtimes\X64" :
+                @"SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\X86";
+
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(keyPath))
+                {
+                    return key != null;
+                }
+            }
+            catch (Exception ex)
+            {
+                //debug(TraceLevel.Info, "vcredist42: exception in reading registry " + ex.ToString());
+            }
+
+            return alreadyInstalled;
         }
         public static byte[] Protect(byte[] data)
         {
